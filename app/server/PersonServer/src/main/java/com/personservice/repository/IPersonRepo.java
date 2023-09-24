@@ -45,5 +45,5 @@ public interface IPersonRepo {
      * @param person объект с информацией, которую пользователь ввел при редактировании карточки места
      * @throws SQLException при неуспешном подключении или внутренней ошибке базы данных
      */
-    void updatePlace(int id, Person person) throws SQLException;
+    Person updatePerson(int id, Person person) throws SQLException;
 }

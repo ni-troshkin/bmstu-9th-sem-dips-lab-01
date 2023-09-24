@@ -137,7 +137,7 @@ public class PgPersonRepo implements IPersonRepo {
      * @throws SQLException при неуспешном подключении или внутренней ошибке базы данных
      */
     @Override
-    public void updatePlace(int id, Person person) throws SQLException {
+    public Person updatePerson(int id, Person person) throws SQLException {
         String updPerson = "UPDATE public.person " +
                 "SET (name, age, address, work) = (?, ?, ?, ?) " +
                 "WHERE id_person = ?";
@@ -149,5 +149,7 @@ public class PgPersonRepo implements IPersonRepo {
         personUpdate.setString(4, person.getWork());
         personUpdate.setInt(5, id);
         personUpdate.executeUpdate();
+
+        return getPersonById(id);
     }
 }
