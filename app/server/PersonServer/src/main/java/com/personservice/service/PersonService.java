@@ -2,6 +2,7 @@ package com.personservice.service;
 
 import com.personservice.entity.Person;
 import com.personservice.repository.IPersonRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ public class PersonService {
     /**
      * Репозиторий, работающий с местами в базе данных
      */
+    @Autowired
     private final IPersonRepo repo;
 
     public PersonService(IPersonRepo repo) {

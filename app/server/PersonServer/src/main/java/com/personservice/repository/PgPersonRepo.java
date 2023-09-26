@@ -101,7 +101,7 @@ public class PgPersonRepo implements IPersonRepo {
         int id;
         try {
             String personAdd = "INSERT INTO public.person " +
-                                "(name, birthday, address, work) " +
+                                "(name, age, address, work) " +
                                 "VALUES (?, ?, ?, ?)";
 
             PreparedStatement personInsertion = conn.prepareStatement(personAdd);
@@ -112,7 +112,7 @@ public class PgPersonRepo implements IPersonRepo {
             personInsertion.executeUpdate();
 
             String checkId = "SELECT id_person FROM public.person " +
-                                "WHERE name = ? AND birthday = ?";
+                                "WHERE name = ? AND age = ?";
             PreparedStatement check = conn.prepareStatement(checkId);
             check.setString(1, person.getName());
             check.setInt(2, person.getAge());
