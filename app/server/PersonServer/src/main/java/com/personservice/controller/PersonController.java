@@ -93,7 +93,7 @@ public class PersonController {
     public ResponseEntity<String> createPerson(@RequestBody PersonRequest reqPerson) throws URISyntaxException, SQLException {
         int id = personService.createPerson(mapper.toPerson(reqPerson));
 
-        URI location = new URI("/persons/" + id);
+        URI location = new URI("/api/v1/persons/" + id);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setLocation(location);
 
