@@ -11,6 +11,8 @@ on:
 env:
   IMAGE_NAME: nitroshkin/server-person
   APP_VERSION: ${{ github.run_number }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
 jobs:
   build:
@@ -24,7 +26,7 @@ jobs:
       # TODO build, test and deploy project
       - name: Build Server
         run: |
-          pwd
+          echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin
           docker build -t $IMAGE_NAME:$APP_VERSION ./app/server/PersonServer
           docker push $IMAGE_NAME:$APP_VERSION
 
