@@ -46,7 +46,7 @@ jobs:
             echo "APP_VERSION=$APP_VERSION" >> .env
             echo "PG_USER=$PG_USER" >> .env
             echo "PG_PASSWORD=$PG_PASSWORD" >> .env
-            ssh -o StrictHostKeyChecking=no -i ./app/deploy/Ubuntu-Standard-2-2-20GB-lObZWNiy.pem $VM_USER@$VM_IP "mkdir ps_deploy"
+            ssh -o StrictHostKeyChecking=no -i ./app/deploy/ps_id_rsa $VM_USER@$VM_IP "mkdir ps_deploy"
             scp .env $VM_USER@$VM_IP:$WORKDIR/.env
             scp ./docker-compose.yml $VM_USER@$VM_IP:$WORKDIR/docker-compose.yml
             ssh -o StrictHostKeyChecking=no $VM_USER@$VM_IP "
