@@ -32,7 +32,7 @@ jobs:
 
       - name: Unit Tests
         run: |
-          ./app/server/PersonServer && mvn clean -Dtest=*Test test
+          cd ./app/server/PersonServer && mvn clean -Dtest=*Test test
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
