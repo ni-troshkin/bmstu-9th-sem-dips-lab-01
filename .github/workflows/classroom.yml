@@ -7,6 +7,11 @@ on:
   pull_request:
     branches:
       - master
+
+env:
+  IMAGE_NAME: nitroshkin/server-person
+  APP_VERSION: $GITHUB_RUN_ID
+
 jobs:
   build:
     name: Autograding
@@ -17,6 +22,12 @@ jobs:
           fetch-depth: 0
 
       # TODO build, test and deploy project
+      - name: Build Server
+        run:
+          - pwd
+          - cd app/server docker build -t $IMAGE_NAME:$APP_VERSION .
+          - docker push $IMAGE_NAME:$APP_VERSION
+
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
