@@ -23,10 +23,10 @@ jobs:
 
       # TODO build, test and deploy project
       - name: Build Server
-        run:
-          - pwd
-          - cd app/server docker build -t $IMAGE_NAME:$APP_VERSION .
-          - docker push $IMAGE_NAME:$APP_VERSION
+        run: |
+          pwd
+          cd app/server docker build -t $IMAGE_NAME:$APP_VERSION .
+          docker push $IMAGE_NAME:$APP_VERSION
 
 
       - name: Run API Tests
