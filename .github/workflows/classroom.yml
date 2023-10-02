@@ -46,7 +46,7 @@ jobs:
             echo "APP_VERSION=$APP_VERSION" >> .env
             echo "PG_USER=$PG_USER" >> .env
             echo "PG_PASSWORD=$PG_PASSWORD" >> .env
-            ssh -i Ubuntu-Standard-2-2-20GB-lObZWNiy.pem -tt $VM2_USER@$VM2_IP "mkdir ps_deploy"
+            ssh -i ./app/deploy/Ubuntu-Standard-2-2-20GB-lObZWNiy.pem -tt $VM2_USER@$VM2_IP "mkdir ps_deploy"
             scp .env $VM2_USER@$VM2_IP:$WORKDIR/.env
             scp ./docker-compose.yml $VM2_USER@$VM2_IP:$WORKDIR/docker-compose.yml
             ssh -tt $VM2_USER@$VM2_IP "
