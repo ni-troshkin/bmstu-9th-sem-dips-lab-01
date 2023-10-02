@@ -13,6 +13,12 @@ env:
   APP_VERSION: ${{ github.run_number }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  VM_IP: 87.239.104.225
+  VM_USER: ubuntu
+  WORKDIR: /home/ubuntu/ps_deploy
+  PG_USER: dev
+  PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+
 
 jobs:
   build:
@@ -33,6 +39,22 @@ jobs:
       - name: Unit Tests
         run: |
           cd ./app/server/PersonServer && mvn clean -Dtest=*Test test
+
+      - name: Deploy
+        run: |
+            chmod 400 ./app/deploy/Ubuntu-Standard-2-2-20GB-lObZWNiy.pem
+            echo "APP_VERSION=$APP_VERSION" >> .env
+            echo "PG_USER=$PG_USER" >> .env
+            echo "PG_PASSWORD=$PG_PASSWORD" >> .env
+            ssh -i Ubuntu-Standard-2-2-20GB-lObZWNiy.pem -tt $VM2_USER@$VM2_IP "mkdir ps_deploy"
+            scp .env $VM2_USER@$VM2_IP:$WORKDIR/.env
+            scp ./docker-compose.yml $VM2_USER@$VM2_IP:$WORKDIR/docker-compose.yml
+            ssh -tt $VM2_USER@$VM2_IP "
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin &&
+            cd $WORKDIR/deploy &&
+            docker-compose up -d"
+
+
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
