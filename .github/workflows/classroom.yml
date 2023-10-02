@@ -25,7 +25,7 @@ jobs:
       - name: Build Server
         run: |
           pwd
-          docker build -t $IMAGE_NAME:$APP_VERSION ./app/server
+          docker build -t $IMAGE_NAME:$APP_VERSION ./app/server/PersonServer
           docker push $IMAGE_NAME:$APP_VERSION
 
 
