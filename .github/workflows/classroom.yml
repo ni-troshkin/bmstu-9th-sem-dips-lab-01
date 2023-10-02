@@ -10,7 +10,7 @@ on:
 
 env:
   IMAGE_NAME: nitroshkin/server-person
-  APP_VERSION: ${{ github.run_id }}
+  APP_VERSION: ${{ github.run_number }}
 
 jobs:
   build:
@@ -25,7 +25,7 @@ jobs:
       - name: Build Server
         run: |
           pwd
-          cd app/server && docker build -t $IMAGE_NAME:$APP_VERSION .
+          docker build -t $IMAGE_NAME:$APP_VERSION ./app/server
           docker push $IMAGE_NAME:$APP_VERSION
 
 
