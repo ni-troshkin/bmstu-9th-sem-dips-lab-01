@@ -10,6 +10,7 @@ on:
 
 env:
   IMAGE_NAME: nitroshkin/server-person
+  DB_IMAGE_NAME: nitroshkin/db-person
   APP_VERSION: ${{ github.run_number }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -35,6 +36,8 @@ jobs:
           echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin
           docker build -t $IMAGE_NAME:$APP_VERSION ./app/server/PersonServer
           docker push $IMAGE_NAME:$APP_VERSION
+          docker build -t $DB_IMAGE_NAME:$APP_VERSION ./app/sql
+          docker push $DB_IMAGE_NAME:$APP_VERSION
 
       - name: Unit Tests
         run: |
