@@ -49,10 +49,10 @@ jobs:
             chmod 400 ./app/deploy/ps_id_rsa
             ssh -o StrictHostKeyChecking=no -i ./app/deploy/ps_id_rsa $VM_USER@$VM_IP "mkdir -p ps_deploy"
             scp -i ./app/deploy/ps_id_rsa .env $VM_USER@$VM_IP:$WORKDIR/.env
-            scp -i ./app/deploy/ps_id_rsa ./docker-compose.yml $VM_USER@$VM_IP:$WORKDIR/docker-compose.yml
+            scp -i ./app/deploy/ps_id_rsa ./app/docker-compose.yml $VM_USER@$VM_IP:$WORKDIR/docker-compose.yml
             ssh -o StrictHostKeyChecking=no -i ./app/deploy/ps_id_rsa $VM_USER@$VM_IP "
             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin &&
-            cd $WORKDIR/deploy &&
+            cd $WORKDIR &&
             docker-compose up -d"
 
 
