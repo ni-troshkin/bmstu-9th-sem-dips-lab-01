@@ -10,7 +10,7 @@ on:
 
 env:
   IMAGE_NAME: nitroshkin/server-person
-  APP_VERSION: $GITHUB_RUN_ID
+  APP_VERSION: ${{ github.run_id }}
 
 jobs:
   build:
