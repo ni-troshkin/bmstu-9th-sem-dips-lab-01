@@ -56,7 +56,7 @@ jobs:
             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin &&
             cd $WORKDIR &&
             docker-compose up -d"
-            ssh -i ./app/deploy/ps_id_rsa $VM_USER@$VM_IP "timeout 90s bash -c \"until docker exec database pg_isready ; do sleep 1 ; done\""
+            ssh -i ./app/deploy/ps_id_rsa $VM_USER@$VM_IP "timeout 90s bash -c \"until docker inspect -f {{.State.Health.Status}} server ==\"healthy\" ]; ; do sleep 1 ; done\""
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
