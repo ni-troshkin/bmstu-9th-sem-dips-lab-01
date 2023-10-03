@@ -108,7 +108,6 @@ public class PersonController {
      */
     @Operation(summary = "Update place")
     @PatchMapping("/{id:\\d+}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<PersonResponse> updatePlace(@PathVariable int id, @RequestBody PersonRequest reqPerson) throws SQLException {
         Person person = personService.updatePerson(id, mapper.toPerson(reqPerson));
         return ResponseEntity.status(HttpStatus.OK).body(mapper.toPersonResponse(person));
