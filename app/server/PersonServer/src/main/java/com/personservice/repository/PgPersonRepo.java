@@ -138,17 +138,45 @@ public class PgPersonRepo implements IPersonRepo {
      */
     @Override
     public Person updatePerson(int id, Person person) throws SQLException {
-        String updPerson = "UPDATE public.person " +
-                "SET (name, age, address, work) = (?, ?, ?, ?) " +
-                "WHERE id_person = ?";
+        if (person.getName() != null) {
+            String updPerson = "UPDATE public.person " +
+                    "SET name = ? " +
+                    "WHERE id_person = ?";
+            PreparedStatement personUpdate = conn.prepareStatement(updPerson);
+            personUpdate.setString(1, person.getName());
+            personUpdate.setInt(2, id);
+            personUpdate.executeUpdate();
+        }
 
-        PreparedStatement personUpdate = conn.prepareStatement(updPerson);
-        personUpdate.setString(1, person.getName());
-        personUpdate.setInt(2, person.getAge());
-        personUpdate.setString(3, person.getAddress());
-        personUpdate.setString(4, person.getWork());
-        personUpdate.setInt(5, id);
-        personUpdate.executeUpdate();
+        if (person.getAddress() != null) {
+            String updPerson = "UPDATE public.person " +
+                    "SET address = ? " +
+                    "WHERE id_person = ?";
+            PreparedStatement personUpdate = conn.prepareStatement(updPerson);
+            personUpdate.setString(1, person.getAddress());
+            personUpdate.setInt(2, id);
+            personUpdate.executeUpdate();
+        }
+
+        if (person.getWork() != null) {
+            String updPerson = "UPDATE public.person " +
+                    "SET work = ? " +
+                    "WHERE id_person = ?";
+            PreparedStatement personUpdate = conn.prepareStatement(updPerson);
+            personUpdate.setString(1, person.getWork());
+            personUpdate.setInt(2, id);
+            personUpdate.executeUpdate();
+        }
+
+        if (person.getAge() > 0) {
+            String updPerson = "UPDATE public.person " +
+                    "SET age = ? " +
+                    "WHERE id_person = ?";
+            PreparedStatement personUpdate = conn.prepareStatement(updPerson);
+            personUpdate.setInt(1, person.getAge());
+            personUpdate.setInt(2, id);
+            personUpdate.executeUpdate();
+        }
 
         return getPersonById(id);
     }
