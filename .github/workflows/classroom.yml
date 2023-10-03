@@ -57,6 +57,7 @@ jobs:
             cd $WORKDIR &&
             docker-compose up -d"
             ssh -o StrictHostKeyChecking=no -i ./app/deploy/ps_id_rsa $VM_USER@$VM_IP "timeout 90s bash -c \"until docker exec database pg_isready ; do sleep 1 ; done\""
+            ssh -o StrictHostKeyChecking=no -i ./app/deploy/ps_id_rsa $VM_USER@$VM_IP "timeout 90s bash -c \"while [ \\\"\\\`docker inspect -f {{.State.Running}} server\\\`\\\" != \\\"true\\\" ]; do sleep 1; echo a ; done\""
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
