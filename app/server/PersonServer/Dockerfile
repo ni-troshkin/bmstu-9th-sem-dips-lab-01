@@ -11,4 +11,6 @@ COPY --from=builder target/server-0.0.1-SNAPSHOT.jar backend-SNAPSHOT.jar
 
 EXPOSE 8080
 
+HEALTHCHECK --interval=5s --timeout=10s --retries=3 CMD curl -sS 127.0.0.1:8080 || exit 1
+
 CMD ["java", "-jar", "backend-SNAPSHOT.jar"]
